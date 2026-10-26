@@ -1,29 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Hallmark · shape: kept · genre: modern-minimal · theme: Console (by request) · redesign: full
+ * hero: Stage · nav: edge-aligned, wordmark and two actions · footer: mast · imagery: the product, built live · signature: the meeting record rendered as an audit trail · console: graphite
+ * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P0 H0 E0 S0 R0 V0 · weakest: none outstanding */
+@import "./tokens.css";
+@import "./base.css" layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&family=Atkinson+Hyperlegible+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities;html {
+@tailwind utilities;
+
+html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0a0f;
-  color: #ffffff;
-}
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-outlier);
 }
 
-/* Custom animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in { animation: fadeIn var(--dur-long) var(--ease-out); }
 }

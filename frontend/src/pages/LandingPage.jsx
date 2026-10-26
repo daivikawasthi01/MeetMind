@@ -1,238 +1,138 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const pipeline = [
+  { tag: 'TXT · MD', title: 'Paste a transcript', description: 'Drop in a raw transcript and get it structured in seconds.' },
+  { tag: 'TXT · MD · PDF', title: 'Upload a file', description: 'Send a transcript file straight through the same pipeline.' },
+  { tag: 'MP3 · WAV · M4A', title: 'Upload audio', description: 'A recording is transcribed, then read the same way.' },
+  { tag: 'MP4 · MOV · WEBM', title: 'Upload video', description: 'Audio is pulled from the file and transcribed first.' },
+];
+
+const steps = [
+  { title: 'Upload', description: 'Paste text, or hand over a file, a recording, or a video of the meeting.' },
+  { title: 'Extract', description: 'The transcript is read for its summary, its action items, and its decisions.' },
+  { title: 'Review', description: 'Everything lands on the dashboard, ready to edit or hand off.' },
+];
+
+const example = [
+  { task: 'Ship the onboarding flow', owner: 'Priya', due: 'Fri' },
+  { task: 'Send the API spec', owner: 'Marcus', due: 'Wed' },
+  { task: 'Handle the design review', owner: 'Carol', due: 'Fri' },
+  { task: 'Delay the billing migration', owner: 'Team', due: 'Q4' },
+  { task: 'Lock the October 30 launch date', owner: 'Team', due: 'Oct 30' },
+];
+
 const LandingPage = () => {
   const { user } = useAuth();
-
-  const features = [
-    {
-      icon: '✏️',
-      title: 'Paste Transcript',
-      description: 'Drop in a raw meeting transcript and get structured insights in seconds.',
-      color: 'indigo',
-    },
-    {
-      icon: '📄',
-      title: 'Upload Files',
-      description: 'Upload .txt, .md, or .pdf transcript files for instant AI extraction.',
-      color: 'emerald',
-    },
-    {
-      icon: '🎙️',
-      title: 'Audio Analysis',
-      description: 'Upload audio recordings — we transcribe and extract key points automatically.',
-      color: 'purple',
-    },
-    {
-      icon: '🎬',
-      title: 'Video Processing',
-      description: 'Upload video files — audio is extracted, transcribed, and analyzed by AI.',
-      color: 'blue',
-    },
-  ];
-
-  const steps = [
-    { number: '01', title: 'Upload', description: 'Paste text or upload a file, audio, or video recording of your meeting.' },
-    { number: '02', title: 'Extract', description: 'Our AI analyzes the content and extracts summaries, action items, and decisions.' },
-    { number: '03', title: 'Review', description: 'View, edit, and manage your structured meeting insights from a clean dashboard.' },
-  ];
-
-  // Color mappings for feature cards — Tailwind can't resolve dynamic classes, so we map explicitly
-  const colorMap = {
-    indigo: {
-      iconBg: 'bg-indigo-500/10',
-      iconBorder: 'border-indigo-500/20',
-      iconText: 'text-indigo-400',
-    },
-    emerald: {
-      iconBg: 'bg-emerald-500/10',
-      iconBorder: 'border-emerald-500/20',
-      iconText: 'text-emerald-400',
-    },
-    purple: {
-      iconBg: 'bg-purple-500/10',
-      iconBorder: 'border-purple-500/20',
-      iconText: 'text-purple-400',
-    },
-    blue: {
-      iconBg: 'bg-blue-500/10',
-      iconBorder: 'border-blue-500/20',
-      iconText: 'text-blue-400',
-    },
-  };
+  const primaryTo = user ? '/dashboard' : '/register';
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
-      {/* ── Ambient background glows ── */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-indigo-500/[0.07] rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[10%] w-[500px] h-[500px] bg-purple-500/[0.05] rounded-full blur-[100px]" />
-        <div className="absolute top-[40%] right-[-5%] w-[400px] h-[400px] bg-blue-500/[0.04] rounded-full blur-[100px]" />
-      </div>
-
-      {/* ── Navbar ── */}
-      <nav className="relative z-10 border-b border-white/[0.06] bg-white/[0.02] backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold tracking-tight">
-            Meet<span className="text-indigo-400">Mind</span>
-          </h1>
-          <div className="flex items-center gap-4">
+    <div className="bg-paper text-ink">
+      {/* ── Nav ── */}
+      <nav className="border-b border-rule">
+        <div className="container flex items-center justify-between h-[72px]">
+          <Link to="/" aria-label="MeetMind home" className="font-display font-medium text-lg tracking-[-0.02em]">
+            Meet<span className="text-accent">Mind</span>
+          </Link>
+          <div className="flex items-center gap-3">
             {user ? (
-              <Link
-                to="/dashboard"
-                className="text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 px-5 py-2.5 rounded-lg transition-colors duration-200"
-              >
-                Go to Dashboard
-              </Link>
+              <Link to="/dashboard" className="btn btn--primary text-sm">Go to dashboard</Link>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="text-sm text-white/60 hover:text-white transition-colors duration-200"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  to="/register"
-                  className="text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 px-5 py-2.5 rounded-lg transition-colors duration-200"
-                >
-                  Get Started
-                </Link>
+                <Link to="/login" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">Sign in</Link>
+                <Link to="/register" className="btn btn--primary text-sm">Get started</Link>
               </>
             )}
           </div>
         </div>
       </nav>
 
-      {/* ── Hero Section ── */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-20 text-center animate-[fadeIn_0.6s_ease-out]">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-8">
-          <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="text-xs font-medium text-indigo-300 tracking-wide">AI-Powered Meeting Intelligence</span>
-        </div>
+      {/* ── Hero (Stage) ── */}
+      <section className="container min-h-[calc(100dvh-72px)] flex items-center">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-xl lg:gap-2xl items-center">
+          <div className="lg:col-span-5">
+            <h1>Meetings, minuted.</h1>
+            <p className="lead text-ink-2 mt-md">
+              Paste a transcript or upload audio, get the decisions and action items.
+            </p>
+            <div className="flex items-center gap-sm mt-lg">
+              <Link to={primaryTo} className="btn btn--primary">{user ? 'Go to dashboard' : 'Start for free'}</Link>
+              <Link to="/login" className="btn">Sign in</Link>
+            </div>
+          </div>
 
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-          Turn meetings into
-          <br />
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-            actionable insights
-          </span>
-        </h2>
-
-        <p className="text-lg text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Upload a transcript, audio, or video — MeetMind uses AI to extract summaries,
-          action items, and key decisions so nothing falls through the cracks.
-        </p>
-
-        <div className="flex items-center justify-center gap-4">
-          <Link
-            to={user ? '/dashboard' : '/register'}
-            className="group relative inline-flex items-center gap-2 px-8 py-3.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25 active:scale-[0.98]"
-          >
-            Start for Free
-            <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
-          <Link
-            to="/login"
-            className="px-8 py-3.5 text-sm font-medium text-white/70 bg-white/[0.04] border border-white/[0.08] rounded-xl hover:bg-white/[0.08] hover:text-white transition-all duration-300"
-          >
-            Sign In
-          </Link>
+          <div className="lg:col-span-7">
+            <div className="rounded-card border border-rule bg-paper-2 overflow-hidden">
+              <div className="flex items-center justify-between px-lg py-xl border-b border-rule">
+                <span className="text-sm text-muted">Example meeting · product sync</span>
+                <span className="measured text-ok px-xs py-[2px] rounded-pill bg-ok-soft">processed</span>
+              </div>
+              <div className="divide-y divide-rule">
+                {example.map((row) => (
+                  <div key={row.task} className="flex items-center justify-between gap-md px-lg py-xl">
+                    <span className="text-sm text-ink-2">{row.task}</span>
+                    <div className="flex items-center gap-sm shrink-0">
+                      <span className="measured text-accent">{row.owner}</span>
+                      <span className="measured text-cool">{row.due}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Features Grid ── */}
-      <section className="relative z-10 max-w-6xl mx-auto px-6 py-20">
-        <div className="text-center mb-14">
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-3">
-            Every meeting format, one pipeline
-          </h3>
-          <p className="text-white/40 max-w-lg mx-auto">
-            Whether it&apos;s a pasted transcript or a raw video file, MeetMind handles it all with a single unified AI pipeline.
-          </p>
-        </div>
+      {/* ── Pipeline (Bento) ── */}
+      <section className="container py-2xl">
+        <h2>Every format, one pipeline</h2>
+        <p className="lead text-muted mt-sm max-w-[52ch]">Whatever a meeting leaves behind, it comes out the other side the same way.</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {features.map((feature) => {
-            const colors = colorMap[feature.color];
-            return (
-              <div
-                key={feature.title}
-                className="group bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
-              >
-                <div className={`w-12 h-12 rounded-xl ${colors.iconBg} border ${colors.iconBorder} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <span className="text-xl">{feature.icon}</span>
-                </div>
-                <h4 className="text-base font-medium text-white mb-2">{feature.title}</h4>
-                <p className="text-sm text-white/40 leading-relaxed">{feature.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── How It Works ── */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 py-20">
-        <div className="text-center mb-14">
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-3">
-            How it works
-          </h3>
-          <p className="text-white/40 max-w-lg mx-auto">
-            Three simple steps to transform raw meeting content into structured, reviewable insights.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {steps.map((step, i) => (
-            <div key={step.number} className="relative text-center group">
-              {/* Connector line (between cards on desktop) */}
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-gradient-to-r from-white/[0.08] to-transparent" />
-              )}
-
-              <div className="relative z-10 mb-4">
-                <span className="text-3xl font-bold bg-gradient-to-b from-indigo-400 to-indigo-600 bg-clip-text text-transparent">
-                  {step.number}
-                </span>
-              </div>
-              <h4 className="text-lg font-medium text-white mb-2">{step.title}</h4>
-              <p className="text-sm text-white/40 leading-relaxed">{step.description}</p>
+        <div className="panels grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-xl">
+          {pipeline.map((item) => (
+            <div key={item.title} className="p-lg">
+              <span className="measured text-muted">{item.tag}</span>
+              <h3 className="mt-md mb-xs">{item.title}</h3>
+              <p className="text-sm text-muted">{item.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <section className="relative z-10 max-w-3xl mx-auto px-6 py-20 text-center">
-        <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 sm:p-14 backdrop-blur-sm">
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-4">
-            Ready to make meetings
-            <span className="text-indigo-400"> productive</span>?
-          </h3>
-          <p className="text-white/40 mb-8 max-w-md mx-auto">
-            Stop losing track of action items and decisions. Let AI handle the busywork.
-          </p>
-          <Link
-            to={user ? '/dashboard' : '/register'}
-            className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25 active:scale-[0.98]"
-          >
-            Get Started — It&apos;s Free
+      {/* ── How it works (Rows) ── */}
+      <section className="container py-2xl">
+        <h2>Upload, extract, review.</h2>
+        <ol className="hm-steps divide-y divide-rule mt-xl">
+          {steps.map((step) => (
+            <li key={step.title} className="grid grid-cols-1 md:grid-cols-12 gap-sm md:gap-xl py-lg md:items-baseline">
+              <div className="md:col-span-5 flex items-baseline gap-md">
+                <span className="hm-step-num measured text-muted" />
+                <h3>{step.title}</h3>
+              </div>
+              <p className="md:col-span-7 text-muted">{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ── Close (Band) ── */}
+      <section className="bg-paper-2 border-y border-rule py-2xl">
+        <div className="container text-center">
+          <h2 className="max-w-[20ch] mx-auto">Stop re-reading the transcript.</h2>
+          <p className="lead text-muted mt-sm mx-auto">Let the next meeting write its own minutes.</p>
+          <Link to={primaryTo} className="btn btn--primary mt-lg">
+            {user ? 'Go to dashboard' : "Get started - it's free"}
           </Link>
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="relative z-10 border-t border-white/[0.06] py-8">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-sm text-white/30">
-            © {new Date().getFullYear()} MeetMind. All rights reserved.
+      {/* ── Footer (Mast) ── */}
+      <footer className="py-2xl">
+        <div className="container flex flex-col sm:flex-row items-center justify-between gap-md">
+          <span className="font-display font-medium">
+            Meet<span className="text-accent">Mind</span>
           </span>
-          <span className="text-sm font-medium text-white/40">
-            Meet<span className="text-indigo-400/60">Mind</span>
-          </span>
+          <span className="text-sm text-muted">© {new Date().getFullYear()} MeetMind</span>
         </div>
       </footer>
     </div>

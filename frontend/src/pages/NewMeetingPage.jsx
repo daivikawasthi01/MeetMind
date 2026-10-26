@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
+const MODES = [
+  { id: 'paste', label: 'Paste text' },
+  { id: 'file', label: 'Upload file' },
+  { id: 'audio', label: 'Upload audio' },
+  { id: 'video', label: 'Upload video' },
+];
+
 const NewMeetingPage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
@@ -184,232 +191,152 @@ const NewMeetingPage = () => {
     }
   };
 
-
-
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Navbar */}
-      <nav className="border-b border-white/[0.06] bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-            Meet<span className="text-indigo-400">Mind</span>
+    <div className="min-h-dvh bg-paper">
+      <nav className="border-b border-rule">
+        <div className="container flex items-center justify-between h-[72px]">
+          <Link to="/dashboard" className="font-display font-medium text-lg tracking-[-0.02em]">
+            Meet<span className="text-accent">Mind</span>
           </Link>
-          <Link to="/dashboard" className="text-sm text-white/50 hover:text-white transition-colors">
-            Back to Dashboard
+          <Link to="/dashboard" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">
+            Back to dashboard
           </Link>
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-6 py-12">
-        <>
-            <div className="mb-8">
-              <h1 className="text-3xl font-semibold mb-2">New Meeting</h1>
-              <p className="text-white/50">Paste a transcript, upload a file, audio, or video to extract insights.</p>
-            </div>
+      <main className="container max-w-[864px] py-2xl">
+        <div className="mb-xl">
+          <h1>New meeting</h1>
+          <p className="text-muted mt-sm">Paste a transcript, or upload a file, audio, or video to extract insights.</p>
+        </div>
 
-            {error && (
-              <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-[fadeIn_0.2s_ease-out]">
-                {error}
-              </div>
-            )}
+        {error && (
+          <div className="mb-lg rounded-card border border-rule bg-bad-soft text-bad text-sm px-md py-sm" role="alert">
+            {error}
+          </div>
+        )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Title */}
-              <div>
-                <label className="block text-sm font-medium text-white/70 mb-2">Meeting Title</label>
-                <input
-                  type="text"
-                  required
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 transition-all placeholder-white/20"
-                  placeholder="e.g. Q3 Roadmap Planning"
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-lg">
+          <div>
+            <label htmlFor="title" className="field-label">Meeting title</label>
+            <input
+              id="title"
+              type="text"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="field"
+              placeholder="e.g. Q3 Roadmap Planning"
+            />
+          </div>
 
-              {/* Input Mode Toggle */}
-              <div>
-                <label className="block text-sm font-medium text-white/70 mb-3">Input Method</label>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setInputMode('paste')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      inputMode === 'paste'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-white/[0.04] text-white/50 hover:text-white hover:bg-white/[0.08]'
-                    }`}
-                  >
-                    ✏️ Paste Text
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInputMode('file')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      inputMode === 'file'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-white/[0.04] text-white/50 hover:text-white hover:bg-white/[0.08]'
-                    }`}
-                  >
-                    📄 Upload File
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInputMode('audio')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      inputMode === 'audio'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-white/[0.04] text-white/50 hover:text-white hover:bg-white/[0.08]'
-                    }`}
-                  >
-                    🎙️ Upload Audio
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInputMode('video')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      inputMode === 'video'
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-white/[0.04] text-white/50 hover:text-white hover:bg-white/[0.08]'
-                    }`}
-                  >
-                    🎬 Upload Video
-                  </button>
-                </div>
-              </div>
-
-              {/* Paste Mode */}
-              {inputMode === 'paste' && (
-                <div className="animate-[fadeIn_0.2s_ease-out]">
-                  <label className="block text-sm font-medium text-white/70 mb-2">Transcript Text</label>
-                  <textarea
-                    value={transcript}
-                    onChange={(e) => setTranscript(e.target.value)}
-                    rows={10}
-                    className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 transition-all placeholder-white/20 resize-y"
-                    placeholder="Paste the raw meeting transcript here..."
-                  />
-                </div>
-              )}
-
-              {/* File Mode */}
-              {inputMode === 'file' && (
-                <div className="animate-[fadeIn_0.2s_ease-out]">
-                  <label className="block text-sm font-medium text-white/70 mb-2">Transcript File</label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".txt,.md,.pdf"
-                      onChange={handleFileChange}
-                      className="block w-full text-sm text-white/60
-                        file:mr-4 file:py-2.5 file:px-4
-                        file:rounded-lg file:border-0
-                        file:text-sm file:font-medium
-                        file:bg-indigo-600 file:text-white
-                        hover:file:bg-indigo-500
-                        file:cursor-pointer file:transition-colors
-                        bg-white/[0.03] border border-white/[0.08] rounded-xl
-                        cursor-pointer p-3"
-                    />
-                  </div>
-                  <p className="mt-2 text-xs text-white/30">Supported: .txt, .md, .pdf — Max size: 2 MB</p>
-
-                  {/* Selected file info */}
-                  {file && (
-                    <div className="mt-3 flex items-center gap-2 p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-sm animate-[fadeIn_0.2s_ease-out]">
-                      <span className="text-indigo-300">📄</span>
-                      <span className="text-white/80">{file.name}</span>
-                      <span className="text-white/30 text-xs">({(file.size / 1024).toFixed(1)} KB)</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Audio Mode */}
-              {inputMode === 'audio' && (
-                <div className="animate-[fadeIn_0.2s_ease-out]">
-                  <label className="block text-sm font-medium text-white/70 mb-2">Audio File</label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".mp3,.wav,.m4a,.webm,audio/*"
-                      onChange={handleAudioChange}
-                      className="block w-full text-sm text-white/60
-                        file:mr-4 file:py-2.5 file:px-4
-                        file:rounded-lg file:border-0
-                        file:text-sm file:font-medium
-                        file:bg-indigo-600 file:text-white
-                        hover:file:bg-indigo-500
-                        file:cursor-pointer file:transition-colors
-                        bg-white/[0.03] border border-white/[0.08] rounded-xl
-                        cursor-pointer p-3"
-                    />
-                  </div>
-                  <p className="mt-2 text-xs text-white/30">Supported: .mp3, .wav, .m4a, .webm — Max size: 25 MB</p>
-
-                  {/* Selected audio file info */}
-                  {audioFile && (
-                    <div className="mt-3 flex items-center gap-2 p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-sm animate-[fadeIn_0.2s_ease-out]">
-                      <span className="text-indigo-300">🎙️</span>
-                      <span className="text-white/80">{audioFile.name}</span>
-                      <span className="text-white/30 text-xs">({(audioFile.size / (1024 * 1024)).toFixed(1)} MB)</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Video Mode */}
-              {inputMode === 'video' && (
-                <div className="animate-[fadeIn_0.2s_ease-out]">
-                  <label className="block text-sm font-medium text-white/70 mb-2">Video File</label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".mp4,.mov,.webm,video/*"
-                      onChange={handleVideoChange}
-                      className="block w-full text-sm text-white/60
-                        file:mr-4 file:py-2.5 file:px-4
-                        file:rounded-lg file:border-0
-                        file:text-sm file:font-medium
-                        file:bg-indigo-600 file:text-white
-                        hover:file:bg-indigo-500
-                        file:cursor-pointer file:transition-colors
-                        bg-white/[0.03] border border-white/[0.08] rounded-xl
-                        cursor-pointer p-3"
-                    />
-                  </div>
-                  <p className="mt-2 text-xs text-white/30">Supported: .mp4, .mov, .webm — Max size: 50 MB</p>
-
-                  {/* Selected video file info */}
-                  {videoFile && (
-                    <div className="mt-3 flex items-center gap-2 p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-sm animate-[fadeIn_0.2s_ease-out]">
-                      <span className="text-indigo-300">🎬</span>
-                      <span className="text-white/80">{videoFile.name}</span>
-                      <span className="text-white/30 text-xs">({(videoFile.size / (1024 * 1024)).toFixed(1)} MB)</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Submit */}
-              <div className="flex justify-end">
+          <div>
+            <span className="field-label">Input method</span>
+            <div className="flex flex-wrap gap-xs" role="group" aria-label="Input method">
+              {MODES.map((mode) => (
                 <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl transition-all disabled:opacity-50 flex items-center gap-2"
+                  key={mode.id}
+                  type="button"
+                  onClick={() => setInputMode(mode.id)}
+                  aria-pressed={inputMode === mode.id}
+                  className={inputMode === mode.id ? 'btn btn--primary text-sm' : 'btn text-sm'}
                 >
-                  {isLoading ? (
-                    <>
-                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      {loadingMessage || 'Uploading...'}
-                    </>
-                  ) : (
-                    'Process Meeting'
-                  )}
+                  {mode.label}
                 </button>
-              </div>
-            </form>
-          </>
+              ))}
+            </div>
+          </div>
+
+          {inputMode === 'paste' && (
+            <div>
+              <label htmlFor="transcript" className="field-label">Transcript text</label>
+              <textarea
+                id="transcript"
+                value={transcript}
+                onChange={(e) => setTranscript(e.target.value)}
+                rows={10}
+                className="field resize-y"
+                placeholder="Paste the raw meeting transcript here..."
+              />
+            </div>
+          )}
+
+          {inputMode === 'file' && (
+            <div>
+              <label htmlFor="transcriptFile" className="field-label">Transcript file</label>
+              <input
+                id="transcriptFile"
+                type="file"
+                accept=".txt,.md,.pdf"
+                onChange={handleFileChange}
+                className="field cursor-pointer file:mr-md file:py-xs file:px-md file:rounded-pill file:border-0 file:text-sm file:font-medium file:bg-accent file:text-accent-ink hover:file:bg-accent/90 file:cursor-pointer"
+              />
+              <p className="mt-xs text-sm text-muted">Supported: .txt, .md, .pdf (max 2 MB)</p>
+
+              {file && (
+                <div className="mt-sm flex items-center gap-sm rounded-card border border-rule bg-paper-2 px-md py-sm text-sm">
+                  <span className="text-ink-2">{file.name}</span>
+                  <span className="measured text-muted">{(file.size / 1024).toFixed(1)} KB</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {inputMode === 'audio' && (
+            <div>
+              <label htmlFor="audioFile" className="field-label">Audio file</label>
+              <input
+                id="audioFile"
+                type="file"
+                accept=".mp3,.wav,.m4a,.webm,audio/*"
+                onChange={handleAudioChange}
+                className="field cursor-pointer file:mr-md file:py-xs file:px-md file:rounded-pill file:border-0 file:text-sm file:font-medium file:bg-accent file:text-accent-ink hover:file:bg-accent/90 file:cursor-pointer"
+              />
+              <p className="mt-xs text-sm text-muted">Supported: .mp3, .wav, .m4a, .webm (max 25 MB)</p>
+
+              {audioFile && (
+                <div className="mt-sm flex items-center gap-sm rounded-card border border-rule bg-paper-2 px-md py-sm text-sm">
+                  <span className="text-ink-2">{audioFile.name}</span>
+                  <span className="measured text-muted">{(audioFile.size / (1024 * 1024)).toFixed(1)} MB</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {inputMode === 'video' && (
+            <div>
+              <label htmlFor="videoFile" className="field-label">Video file</label>
+              <input
+                id="videoFile"
+                type="file"
+                accept=".mp4,.mov,.webm,video/*"
+                onChange={handleVideoChange}
+                className="field cursor-pointer file:mr-md file:py-xs file:px-md file:rounded-pill file:border-0 file:text-sm file:font-medium file:bg-accent file:text-accent-ink hover:file:bg-accent/90 file:cursor-pointer"
+              />
+              <p className="mt-xs text-sm text-muted">Supported: .mp4, .mov, .webm (max 50 MB)</p>
+
+              {videoFile && (
+                <div className="mt-sm flex items-center gap-sm rounded-card border border-rule bg-paper-2 px-md py-sm text-sm">
+                  <span className="text-ink-2">{videoFile.name}</span>
+                  <span className="measured text-muted">{(videoFile.size / (1024 * 1024)).toFixed(1)} MB</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="flex justify-end">
+            <button type="submit" disabled={isLoading} className="btn btn--primary">
+              {isLoading ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-accent-ink/30 border-t-accent-ink rounded-full animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                  {loadingMessage || 'Uploading...'}
+                </>
+              ) : (
+                'Process meeting'
+              )}
+            </button>
+          </div>
+        </form>
       </main>
     </div>
   );

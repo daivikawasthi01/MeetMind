@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Hallmark scratch output (audit/redesign screenshots and records)
+.hallmark/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

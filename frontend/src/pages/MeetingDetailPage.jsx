@@ -169,12 +169,12 @@ const MeetingDetailPage = () => {
     }));
   };
 
-  // Input type icon and label
-  const inputTypeDisplay = {
-    transcript: { icon: '✏️', label: 'Pasted Text' },
-    transcript_file: { icon: '📄', label: 'File Upload' },
-    audio: { icon: '🎙️', label: 'Audio' },
-    video: { icon: '🎬', label: 'Video' },
+  // Input type label
+  const inputTypeLabel = {
+    transcript: 'Pasted text',
+    transcript_file: 'File upload',
+    audio: 'Audio',
+    video: 'Video',
   };
 
   /** Format a date for the "Last edited" display */
@@ -191,90 +191,65 @@ const MeetingDetailPage = () => {
     });
   };
 
-  // ── Shared input styles ──
-  const inputClass = 'w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 transition-all placeholder-white/20';
-  const textareaClass = `${inputClass} resize-none`;
-
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] text-white">
-        {/* Navbar skeleton */}
-        <nav className="border-b border-white/[0.06] bg-white/[0.02] backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="text-xl font-bold tracking-tight">
-              Meet<span className="text-indigo-400">Mind</span>
+      <div className="min-h-dvh bg-paper">
+        <nav className="border-b border-rule">
+          <div className="container flex items-center justify-between h-[72px]">
+            <div className="font-display font-medium text-lg tracking-[-0.02em]">
+              Meet<span className="text-accent">Mind</span>
             </div>
-            <div className="h-4 w-32 rounded bg-white/[0.06] animate-pulse" />
+            <div className="h-4 w-32 rounded bg-paper-3 animate-pulse motion-reduce:animate-none" />
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-6 py-10 animate-[fadeIn_0.3s_ease-out]">
-          {/* Header skeleton */}
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 animate-pulse">
+        <main className="container py-2xl">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-md mb-xl animate-pulse motion-reduce:animate-none">
             <div className="flex-1 min-w-0">
-              <div className="h-8 w-2/3 rounded bg-white/[0.06] mb-3" />
-              <div className="flex items-center gap-3">
-                <div className="h-4 w-20 rounded bg-white/[0.04]" />
-                <div className="h-4 w-24 rounded bg-white/[0.04]" />
+              <div className="h-8 w-2/3 rounded bg-paper-3 mb-sm" />
+              <div className="flex items-center gap-sm">
+                <div className="h-4 w-20 rounded bg-paper-3" />
+                <div className="h-4 w-24 rounded bg-paper-3" />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="h-9 w-20 rounded-lg bg-white/[0.04]" />
-              <div className="h-9 w-20 rounded-lg bg-white/[0.04]" />
+            <div className="flex items-center gap-xs">
+              <div className="h-9 w-20 rounded-pill bg-paper-3" />
+              <div className="h-9 w-20 rounded-pill bg-paper-3" />
             </div>
           </div>
 
-          {/* Content grid skeleton */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left column */}
-            <div className="lg:col-span-2 space-y-6 animate-pulse">
-              {/* Summary skeleton */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <div className="h-5 w-24 rounded bg-indigo-500/20 mb-4" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+            <div className="lg:col-span-2 flex flex-col gap-lg animate-pulse motion-reduce:animate-none">
+              <div className="rounded-card border border-rule bg-paper-2 p-lg">
+                <div className="h-5 w-24 rounded bg-paper-3 mb-md" />
                 <div className="space-y-2.5">
-                  <div className="h-4 w-full rounded bg-white/[0.04]" />
-                  <div className="h-4 w-full rounded bg-white/[0.04]" />
-                  <div className="h-4 w-3/4 rounded bg-white/[0.04]" />
+                  <div className="h-4 w-full rounded bg-paper-3" />
+                  <div className="h-4 w-full rounded bg-paper-3" />
+                  <div className="h-4 w-3/4 rounded bg-paper-3" />
                 </div>
               </div>
-
-              {/* Action items skeleton */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <div className="h-5 w-32 rounded bg-purple-500/20 mb-4" />
+              <div className="rounded-card border border-rule bg-paper-2 p-lg">
+                <div className="h-5 w-32 rounded bg-paper-3 mb-md" />
                 <div className="space-y-3">
                   {[1, 2, 3].map((n) => (
-                    <div key={n} className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.04]">
-                      <div className="h-4 w-1/2 rounded bg-white/[0.06]" />
-                      <div className="flex items-center gap-2">
-                        <div className="h-5 w-16 rounded bg-white/[0.04]" />
-                        <div className="h-5 w-16 rounded bg-white/[0.04]" />
+                    <div key={n} className="flex items-center justify-between p-md bg-paper-3 rounded-[var(--radius-card)]">
+                      <div className="h-4 w-1/2 rounded bg-paper-2" />
+                      <div className="flex items-center gap-xs">
+                        <div className="h-5 w-16 rounded bg-paper-2" />
+                        <div className="h-5 w-16 rounded bg-paper-2" />
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Decisions skeleton */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <div className="h-5 w-32 rounded bg-blue-500/20 mb-4" />
-                <div className="space-y-2">
-                  {[1, 2].map((n) => (
-                    <div key={n} className="flex items-start gap-3 p-3 bg-white/[0.03] rounded-xl border border-white/[0.04]">
-                      <div className="h-4 w-4 rounded bg-white/[0.06] mt-0.5 flex-shrink-0" />
-                      <div className="h-4 w-full rounded bg-white/[0.04]" />
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            {/* Right column — Transcript skeleton */}
-            <div className="lg:col-span-1 animate-pulse">
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <div className="h-5 w-36 rounded bg-emerald-500/20 mb-4" />
+            <div className="lg:col-span-1 animate-pulse motion-reduce:animate-none">
+              <div className="rounded-card border border-rule bg-paper-2 p-lg">
+                <div className="h-5 w-36 rounded bg-paper-3 mb-md" />
                 <div className="space-y-2">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                    <div key={n} className="h-3.5 rounded bg-white/[0.04]" style={{ width: `${60 + Math.random() * 40}%` }} />
+                    <div key={n} className="h-3.5 rounded bg-paper-3" style={{ width: `${60 + ((n * 37) % 40)}%` }} />
                   ))}
                 </div>
               </div>
@@ -287,62 +262,62 @@ const MeetingDetailPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex flex-col items-center justify-center gap-4">
-        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm max-w-md text-center">
+      <div className="min-h-dvh bg-paper flex flex-col items-center justify-center gap-md px-md">
+        <div className="rounded-card border border-rule bg-bad-soft text-bad text-sm max-w-md text-center px-md py-sm" role="alert">
           {error}
         </div>
-        <Link to="/dashboard" className="text-sm text-white/50 hover:text-white transition-colors">
-          ← Back to Dashboard
+        <Link to="/dashboard" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">
+          Back to dashboard
         </Link>
       </div>
     );
   }
 
-  const typeInfo = inputTypeDisplay[meeting.inputType] || { icon: '📋', label: meeting.inputType };
+  const typeLabel = inputTypeLabel[meeting.inputType] || meeting.inputType;
   const wasEdited = meeting.updatedAt && meeting.updatedAt !== meeting.createdAt;
 
   // ── Processing screen ──
   if (meeting.status === 'processing') {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] text-white">
-        {/* Navbar */}
-        <nav className="border-b border-white/[0.06] bg-white/[0.02] backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link to="/dashboard" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-              Meet<span className="text-indigo-400">Mind</span>
+      <div className="min-h-dvh bg-paper">
+        <nav className="border-b border-rule">
+          <div className="container flex items-center justify-between h-[72px]">
+            <Link to="/dashboard" className="font-display font-medium text-lg tracking-[-0.02em]">
+              Meet<span className="text-accent">Mind</span>
             </Link>
-            <Link to="/dashboard" className="text-sm text-white/50 hover:text-white transition-colors">
-              ← Back to Dashboard
+            <Link to="/dashboard" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">
+              Back to dashboard
             </Link>
           </div>
         </nav>
 
-        <main className="max-w-2xl mx-auto px-6 py-24 flex flex-col items-center text-center animate-[fadeIn_0.3s_ease-out]">
-          {/* Animated spinner */}
-          <div className="relative mb-8">
-            <div className="w-20 h-20 rounded-full border-4 border-white/[0.06]" />
-            <div className="absolute inset-0 w-20 h-20 rounded-full border-4 border-transparent border-t-indigo-500 border-r-purple-500 animate-spin" />
+        <main className="container max-w-[640px] py-3xl flex flex-col items-center text-center">
+          <div className="relative mb-lg" aria-hidden="true">
+            <div className="w-16 h-16 rounded-full border-4 border-rule" />
+            <div className="absolute inset-0 w-16 h-16 rounded-full border-4 border-transparent border-t-accent animate-spin motion-reduce:animate-none" />
           </div>
 
-          <h1 className="text-2xl font-semibold mb-2">{meeting.title}</h1>
-          <p className="text-white/50 mb-6">AI is analyzing your meeting...</p>
+          <h1>{meeting.title}</h1>
+          <p className="text-muted mt-sm mb-lg">AI is analyzing your meeting…</p>
 
-          <div className="space-y-3 w-full max-w-sm">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-              <span className="text-indigo-400">✓</span>
-              <span className="text-white/60 text-sm">File uploaded</span>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-              <span className="w-4 h-4 border-2 border-white/20 border-t-purple-400 rounded-full animate-spin" />
-              <span className="text-white/60 text-sm">Extracting insights...</span>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] opacity-40">
-              <span className="text-white/30">○</span>
-              <span className="text-white/30 text-sm">Ready for review</span>
+          <div className="w-full max-w-sm">
+            <div className="rounded-card border border-rule bg-paper-2 divide-y divide-rule">
+              <div className="flex items-center gap-sm px-md py-sm">
+                <span className="measured text-ok">done</span>
+                <span className="text-sm text-ink-2">File uploaded</span>
+              </div>
+              <div className="flex items-center gap-sm px-md py-sm">
+                <span className="w-3.5 h-3.5 border-2 border-rule-2 border-t-accent rounded-full animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                <span className="text-sm text-ink-2">Extracting insights…</span>
+              </div>
+              <div className="flex items-center gap-sm px-md py-sm opacity-50">
+                <span className="measured text-muted">next</span>
+                <span className="text-sm text-muted">Ready for review</span>
+              </div>
             </div>
           </div>
 
-          <p className="text-white/20 text-xs mt-8">This page will update automatically</p>
+          <p className="text-muted text-sm mt-lg">This page will update automatically.</p>
         </main>
       </div>
     );
@@ -351,46 +326,35 @@ const MeetingDetailPage = () => {
   // ── Failed screen ──
   if (meeting.status === 'failed') {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] text-white">
-        {/* Navbar */}
-        <nav className="border-b border-white/[0.06] bg-white/[0.02] backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link to="/dashboard" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-              Meet<span className="text-indigo-400">Mind</span>
+      <div className="min-h-dvh bg-paper">
+        <nav className="border-b border-rule">
+          <div className="container flex items-center justify-between h-[72px]">
+            <Link to="/dashboard" className="font-display font-medium text-lg tracking-[-0.02em]">
+              Meet<span className="text-accent">Mind</span>
             </Link>
-            <Link to="/dashboard" className="text-sm text-white/50 hover:text-white transition-colors">
-              ← Back to Dashboard
+            <Link to="/dashboard" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">
+              Back to dashboard
             </Link>
           </div>
         </nav>
 
-        <main className="max-w-lg mx-auto px-6 py-24 flex flex-col items-center text-center animate-[fadeIn_0.3s_ease-out]">
-          {/* Error icon */}
-          <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-6">
-            <svg className="w-8 h-8 text-red-400" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+        <main className="container max-w-[520px] py-3xl flex flex-col items-center text-center">
+          <div className="w-14 h-14 rounded-full bg-bad-soft flex items-center justify-center mb-lg">
+            <svg className="w-7 h-7 text-bad" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
             </svg>
           </div>
 
-          <h1 className="text-2xl font-semibold mb-2">Processing Failed</h1>
-          <p className="text-white/50 mb-2">{meeting.title}</p>
+          <h1>Processing failed</h1>
+          <p className="text-muted mt-sm mb-md">{meeting.title}</p>
 
-          <div className="w-full p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm mb-8">
+          <div className="w-full rounded-card border border-rule bg-bad-soft text-bad text-sm px-md py-sm mb-lg">
             {meeting.errorMessage || 'An unknown error occurred during processing.'}
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/meetings/new"
-              className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-all"
-            >
-              Try Again
-            </Link>
-            <button
-              onClick={handleDelete}
-              disabled={isDeleting}
-              className="px-5 py-2.5 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-all disabled:opacity-50"
-            >
+          <div className="flex items-center gap-sm">
+            <Link to="/meetings/new" className="btn btn--primary text-sm">Try again</Link>
+            <button onClick={handleDelete} disabled={isDeleting} className="btn text-sm text-bad">
               {isDeleting ? 'Deleting...' : 'Delete'}
             </button>
           </div>
@@ -400,110 +364,81 @@ const MeetingDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Navbar */}
-      <nav className="border-b border-white/[0.06] bg-white/[0.02] backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-            Meet<span className="text-indigo-400">Mind</span>
+    <div className="min-h-dvh bg-paper">
+      <nav className="border-b border-rule">
+        <div className="container flex items-center justify-between h-[72px]">
+          <Link to="/dashboard" className="font-display font-medium text-lg tracking-[-0.02em]">
+            Meet<span className="text-accent">Mind</span>
           </Link>
-          <Link to="/dashboard" className="text-sm text-white/50 hover:text-white transition-colors">
-            ← Back to Dashboard
+          <Link to="/dashboard" className="text-sm text-muted hover:text-ink transition-colors duration-[var(--dur-short)]">
+            Back to dashboard
           </Link>
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-6 py-10 animate-[fadeIn_0.3s_ease-out]">
+      <main className="container py-2xl">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-md mb-xl">
           <div className="flex-1 min-w-0">
-            {/* Title — editable or display */}
             {isEditing ? (
               <input
                 type="text"
                 value={editData.title}
                 onChange={(e) => setEditData((prev) => ({ ...prev, title: e.target.value }))}
-                className={`${inputClass} text-2xl sm:text-3xl font-semibold mb-2 !bg-white/[0.03]`}
+                className="field text-2xl sm:text-3xl font-display font-medium mb-sm"
                 placeholder="Meeting title"
               />
             ) : (
-              <h1 className="text-2xl sm:text-3xl font-semibold mb-2 break-words">{meeting.title}</h1>
+              <h1 className="mb-sm break-words">{meeting.title}</h1>
             )}
-            <div className="flex flex-wrap items-center gap-3 text-sm text-white/40">
-              <span>{typeInfo.icon} {typeInfo.label}</span>
-              <span>•</span>
+            <div className="flex flex-wrap items-center text-sm text-muted">
+              <span>{typeLabel}</span>
+              <span className="border-l border-rule mx-sm h-3.5" aria-hidden="true" />
               <span>{formatDate(meeting.createdAt)}</span>
               {wasEdited && (
                 <>
-                  <span>•</span>
-                  <span className="text-white/30 italic" title={formatDateTime(meeting.updatedAt)}>
-                    Edited {formatDateTime(meeting.updatedAt)}
-                  </span>
+                  <span className="border-l border-rule mx-sm h-3.5" aria-hidden="true" />
+                  <span title={formatDateTime(meeting.updatedAt)}>Edited {formatDateTime(meeting.updatedAt)}</span>
                 </>
               )}
               {meeting.sourceFileName && (
                 <>
-                  <span>•</span>
-                  <span className="text-white/30">{meeting.sourceFileName}</span>
+                  <span className="border-l border-rule mx-sm h-3.5" aria-hidden="true" />
+                  <span>{meeting.sourceFileName}</span>
                 </>
               )}
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-xs flex-shrink-0">
             {isEditing ? (
-              <div className="flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]">
-                <button
-                  onClick={handleSave}
-                  disabled={isSaving}
-                  className="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                >
-                  {isSaving && <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
-                  {isSaving ? 'Saving...' : 'Save Changes'}
+              <>
+                <button onClick={handleSave} disabled={isSaving} className="btn btn--primary text-sm">
+                  {isSaving && <span className="w-3.5 h-3.5 border-2 border-accent-ink/30 border-t-accent-ink rounded-full animate-spin motion-reduce:animate-none" aria-hidden="true" />}
+                  {isSaving ? 'Saving...' : 'Save changes'}
                 </button>
-                <button
-                  onClick={cancelEdit}
-                  disabled={isSaving}
-                  className="px-4 py-2 text-sm text-white/60 bg-white/[0.05] rounded-lg hover:bg-white/[0.1] transition-all disabled:opacity-50"
-                >
+                <button onClick={cancelEdit} disabled={isSaving} className="btn text-sm">
                   Cancel
                 </button>
-              </div>
+              </>
             ) : (
               <>
-                <button
-                  onClick={enterEditMode}
-                  className="px-4 py-2 text-sm text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 rounded-lg hover:bg-indigo-500/20 transition-all flex items-center gap-2"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                  </svg>
+                <button onClick={enterEditMode} className="btn text-sm">
                   Edit
                 </button>
 
-                {/* Delete button */}
                 {!showDeleteConfirm ? (
-                  <button
-                    onClick={() => setShowDeleteConfirm(true)}
-                    className="px-4 py-2 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-all"
-                  >
+                  <button onClick={() => setShowDeleteConfirm(true)} className="btn text-sm text-bad">
                     Delete
                   </button>
                 ) : (
-                  <div className="flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]">
-                    <span className="text-sm text-white/50">Sure?</span>
-                    <button
-                      onClick={handleDelete}
-                      disabled={isDeleting}
-                      className="px-4 py-2 text-sm text-white bg-red-600 rounded-lg hover:bg-red-500 transition-all disabled:opacity-50"
-                    >
+                  <div className="flex items-center gap-xs">
+                    <span className="text-sm text-muted">Sure?</span>
+                    <button onClick={handleDelete} disabled={isDeleting} className="btn text-sm text-bad">
                       {isDeleting ? 'Deleting...' : 'Yes'}
                     </button>
-                    <button
-                      onClick={() => setShowDeleteConfirm(false)}
-                      className="px-3 py-2 text-sm text-white/50 bg-white/[0.05] rounded-lg hover:bg-white/[0.1] transition-all"
-                    >
+                    <button onClick={() => setShowDeleteConfirm(false)} className="btn text-sm">
                       No
                     </button>
                   </div>
@@ -513,188 +448,146 @@ const MeetingDetailPage = () => {
           </div>
         </div>
 
-        {/* Save error banner */}
         {saveError && (
-          <div className="mb-6 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-[fadeIn_0.2s_ease-out]">
+          <div className="mb-lg rounded-card border border-rule bg-bad-soft text-bad text-sm px-md py-sm" role="alert">
             {saveError}
           </div>
         )}
 
         {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left column — AI Insights (2/3 width) */}
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+          {/* Left column — AI insights (2/3 width) */}
+          <div className="lg:col-span-2 flex flex-col gap-lg">
             {/* Summary */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-              <h2 className="text-lg font-medium mb-3 text-indigo-400 flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
-                </svg>
-                Summary
-              </h2>
+            <div className="rounded-card border border-rule bg-paper-2 p-lg">
+              <h2 className="card-title mb-sm">Summary</h2>
               {isEditing ? (
                 <textarea
                   value={editData.summary}
                   onChange={(e) => setEditData((prev) => ({ ...prev, summary: e.target.value }))}
-                  className={`${textareaClass} min-h-[120px]`}
+                  className="field resize-none min-h-[120px]"
                   placeholder="Meeting summary..."
                   rows={5}
                 />
               ) : (
-                <p className="text-white/80 leading-relaxed">{meeting.summary || 'No summary available.'}</p>
+                <p className="text-ink-2">{meeting.summary || 'No summary available.'}</p>
               )}
             </div>
 
-            {/* Action Items */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-              <h2 className="text-lg font-medium mb-4 text-purple-400 flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Action Items
+            {/* Action items */}
+            <div className="rounded-card border border-rule bg-paper-2 p-lg">
+              <h2 className="card-title mb-md flex items-center gap-sm">
+                Action items
                 {(() => {
                   const items = isEditing ? editData.actionItems : meeting.actionItems;
                   return items?.length > 0 && (
-                    <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">
-                      {items.length}
-                    </span>
+                    <span className="measured text-muted">{items.length}</span>
                   );
                 })()}
               </h2>
 
               {isEditing ? (
-                <div className="space-y-3">
+                <div className="flex flex-col gap-sm">
                   {editData.actionItems.map((item, i) => (
-                    <div key={i} className="p-4 bg-white/[0.03] rounded-xl border border-white/[0.04] space-y-3 animate-[fadeIn_0.2s_ease-out]">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-1 space-y-2">
+                    <div key={i} className="p-md bg-paper-3 rounded-[var(--radius-card)] flex flex-col gap-sm">
+                      <div className="flex items-start gap-sm">
+                        <div className="flex-1 flex flex-col gap-xs">
                           <input
                             type="text"
                             value={item.task}
                             onChange={(e) => updateActionItem(i, 'task', e.target.value)}
-                            className={inputClass}
+                            className="field"
                             placeholder="Task description"
                           />
-                          <div className="flex gap-2">
+                          <div className="flex gap-xs">
                             <input
                               type="text"
                               value={item.owner}
                               onChange={(e) => updateActionItem(i, 'owner', e.target.value)}
-                              className={`${inputClass} flex-1`}
+                              className="field flex-1"
                               placeholder="Owner"
                             />
                             <input
                               type="text"
                               value={item.deadline}
                               onChange={(e) => updateActionItem(i, 'deadline', e.target.value)}
-                              className={`${inputClass} flex-1`}
+                              className="field flex-1"
                               placeholder="Deadline"
                             />
                           </div>
                         </div>
-                        <button
-                          onClick={() => removeActionItem(i)}
-                          className="mt-1 p-1.5 text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
-                          title="Remove action item"
-                        >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                          </svg>
+                        <button onClick={() => removeActionItem(i)} className="btn text-sm text-bad">
+                          Remove
                         </button>
                       </div>
                     </div>
                   ))}
-                  <button
-                    onClick={addActionItem}
-                    className="w-full py-2.5 text-sm text-purple-300/70 border border-dashed border-white/[0.08] rounded-xl hover:border-purple-500/30 hover:text-purple-300 hover:bg-purple-500/[0.03] transition-all"
-                  >
-                    + Add Action Item
+                  <button onClick={addActionItem} className="btn text-sm w-full">
+                    + Add action item
                   </button>
                 </div>
               ) : (
                 meeting.actionItems?.length > 0 ? (
-                  <ul className="space-y-3">
+                  <div className="rounded-[var(--radius-card)] overflow-hidden divide-y divide-rule">
                     {meeting.actionItems.map((item, i) => (
-                      <li key={item._id || i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 bg-white/[0.03] rounded-xl border border-white/[0.04] hover:border-white/[0.08] transition-colors">
-                        <span className="text-white/90">{item.task}</span>
-                        <div className="flex items-center gap-3 text-xs flex-shrink-0">
-                          <span className="px-2 py-1 rounded bg-indigo-500/10 text-indigo-300">
-                            👤 {item.owner || 'Unassigned'}
-                          </span>
-                          {item.deadline && (
-                            <span className="px-2 py-1 rounded bg-red-500/10 text-red-300">
-                              ⏱️ {item.deadline}
-                            </span>
-                          )}
+                      <div key={item._id || i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-xs bg-paper-3 px-md py-sm">
+                        <span className="text-ink-2 text-sm">{item.task}</span>
+                        <div className="flex items-center gap-sm flex-shrink-0">
+                          <span className="measured text-accent">{item.owner || 'Unassigned'}</span>
+                          {item.deadline && <span className="measured text-cool">{item.deadline}</span>}
                         </div>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 ) : (
-                  <p className="text-white/40 italic">No action items detected.</p>
+                  <p className="text-muted italic">No action items detected.</p>
                 )
               )}
             </div>
 
             {/* Decisions */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-              <h2 className="text-lg font-medium mb-3 text-blue-400 flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                </svg>
-                Key Decisions
+            <div className="rounded-card border border-rule bg-paper-2 p-lg">
+              <h2 className="card-title mb-sm flex items-center gap-sm">
+                Key decisions
                 {(() => {
                   const items = isEditing ? editData.decisions : meeting.decisions;
                   return items?.length > 0 && (
-                    <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full">
-                      {items.length}
-                    </span>
+                    <span className="measured text-muted">{items.length}</span>
                   );
                 })()}
               </h2>
 
               {isEditing ? (
-                <div className="space-y-2">
+                <div className="flex flex-col gap-xs">
                   {editData.decisions.map((decision, i) => (
-                    <div key={i} className="flex items-start gap-2 animate-[fadeIn_0.2s_ease-out]">
-                      <span className="text-blue-400 mt-2.5 flex-shrink-0">✦</span>
+                    <div key={i} className="flex items-center gap-xs">
                       <input
                         type="text"
                         value={decision}
                         onChange={(e) => updateDecision(i, e.target.value)}
-                        className={`${inputClass} flex-1`}
+                        className="field flex-1"
                         placeholder="Decision"
                       />
-                      <button
-                        onClick={() => removeDecision(i)}
-                        className="mt-1 p-1.5 text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
-                        title="Remove decision"
-                      >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                        </svg>
+                      <button onClick={() => removeDecision(i)} className="btn text-sm text-bad flex-shrink-0">
+                        Remove
                       </button>
                     </div>
                   ))}
-                  <button
-                    onClick={addDecision}
-                    className="w-full py-2.5 text-sm text-blue-300/70 border border-dashed border-white/[0.08] rounded-xl hover:border-blue-500/30 hover:text-blue-300 hover:bg-blue-500/[0.03] transition-all"
-                  >
-                    + Add Decision
+                  <button onClick={addDecision} className="btn text-sm w-full">
+                    + Add decision
                   </button>
                 </div>
               ) : (
                 meeting.decisions?.length > 0 ? (
-                  <ul className="space-y-2">
+                  <div className="rounded-[var(--radius-card)] overflow-hidden divide-y divide-rule">
                     {meeting.decisions.map((decision, i) => (
-                      <li key={i} className="flex items-start gap-3 p-3 bg-white/[0.03] rounded-xl border border-white/[0.04]">
-                        <span className="text-blue-400 mt-0.5">✦</span>
-                        <span className="text-white/80">{decision}</span>
-                      </li>
+                      <div key={i} className="bg-paper-3 px-md py-sm">
+                        <span className="text-ink-2 text-sm">{decision}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 ) : (
-                  <p className="text-white/40 italic">No key decisions detected.</p>
+                  <p className="text-muted italic">No key decisions detected.</p>
                 )
               )}
             </div>
@@ -702,19 +595,14 @@ const MeetingDetailPage = () => {
 
           {/* Right column — Transcript (1/3 width) */}
           <div className="lg:col-span-1">
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 lg:sticky lg:top-6">
-              <h2 className="text-lg font-medium mb-3 text-emerald-400 flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-                Original Transcript
-              </h2>
+            <div className="rounded-card border border-rule bg-paper-2 p-lg lg:sticky lg:top-lg">
+              <h2 className="card-title mb-sm">Original transcript</h2>
               {meeting.rawText ? (
-                <div className="max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-                  <p className="text-white/60 text-sm leading-relaxed whitespace-pre-wrap">{meeting.rawText}</p>
+                <div className="max-h-[600px] overflow-y-auto pr-xs">
+                  <p className="text-ink-2 text-sm whitespace-pre-wrap">{meeting.rawText}</p>
                 </div>
               ) : (
-                <p className="text-white/40 italic text-sm">Transcript not available.</p>
+                <p className="text-muted italic text-sm">Transcript not available.</p>
               )}
             </div>
           </div>
