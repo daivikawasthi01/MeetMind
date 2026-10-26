@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth.routes');
@@ -19,9 +20,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/meetings', meetingRoutes);
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'API is running' });
+// Health check — also pings MongoDB so external uptime pings keep the Atlas cluster active
+app.get('/api/health', async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.status(200).json({ status: 'ok', message: 'API is running', db: 'connected' });
+  } catch (error) {
+    res.status(503).json({ status: 'error', message: 'API is running but DB ping failed', db: 'disconnected' });
+  }
 });
 
 // Error handling middleware
