@@ -1,6 +1,6 @@
 # MeetMind
 
-AI-powered meeting intelligence — paste a transcript, upload a file, audio, or video, and let AI extract summaries, action items, and key decisions.
+AI-powered meeting intelligence. Paste a transcript, upload a file, audio, or video, and let AI extract summaries, action items, and key decisions.
 
 ---
 
@@ -18,6 +18,14 @@ AI-powered meeting intelligence — paste a transcript, upload a file, audio, or
 </div>
 
 ---
+
+## Features
+
+- **Multi-format meeting ingestion**: paste text, or upload a transcript file (`.txt`/`.md`/`.pdf`), audio (`.mp3`/`.wav`/`.m4a`/`.webm`), or video (`.mp4`/`.mov`/`.webm`).
+- **AI-powered extraction**: Google Gemini turns raw input into structured summaries, action items, and key decisions.
+- **Audio/video pipeline**: video is converted to audio with ffmpeg, then transcribed and analyzed by Gemini.
+- **User accounts**: JWT + bcrypt authentication, with meetings scoped per user.
+- **Meeting dashboard**: list, view, edit, and delete past meetings from a React dashboard.
 
 ## Architecture
 
@@ -54,8 +62,8 @@ meetmind/
 | **Frontend**   | React 18, Vite 5, Tailwind CSS v3, React Router v6                        |
 | **Backend**    | Node.js, Express, Mongoose 9                                              |
 | **Database**   | MongoDB (Atlas)                                                            |
-| **AI**         | Google Gemini (`@google/genai`) — extraction + audio transcription          |
-| **Media**      | ffmpeg via `@ffmpeg-installer/ffmpeg` + `fluent-ffmpeg` — video → audio    |
+| **AI**         | Google Gemini (`@google/genai`) for extraction and audio transcription     |
+| **Media**      | ffmpeg via `@ffmpeg-installer/ffmpeg` + `fluent-ffmpeg` to convert video to audio |
 | **File Upload**| Multer (text/PDF/audio/video with size limits)                             |
 | **Auth**       | JWT + bcrypt                                                               |
 
@@ -74,8 +82,8 @@ meetmind/
 
 - **Node.js** v20.x (tested with v20.15.0)
 - **npm** v10+
-- **MongoDB** — local instance or [MongoDB Atlas](https://www.mongodb.com/atlas) connection string
-- **Google Gemini API Key** — get one from [Google AI Studio](https://aistudio.google.com/)
+- **MongoDB**: local instance or a [MongoDB Atlas](https://www.mongodb.com/atlas) connection string
+- **Google Gemini API Key**: get one from [Google AI Studio](https://aistudio.google.com/)
 
 ### Installation
 
@@ -148,7 +156,7 @@ npm run dev
 ### Backend (Render)
 - Use the included `render.yaml` Blueprint for one-click deployment.
 - Ensure `MONGO_URI`, `JWT_SECRET`, `GEMINI_API_KEY`, and `CLIENT_URL` are set in Render environment variables.
-- Render's filesystem is ephemeral — uploaded files are processed immediately and cleaned up.
+- Render's filesystem is ephemeral, so uploaded files are processed immediately and cleaned up.
 
 ### Frontend (Vercel)
 - Connect your GitHub repo and set the root directory to `frontend/`.
